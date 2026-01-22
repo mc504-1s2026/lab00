@@ -1,0 +1,2 @@
+[M] booting in M-mode
+[M] starting early kernel boot
