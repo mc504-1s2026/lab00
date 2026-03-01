@@ -10,7 +10,7 @@ the kernel. You will find the lab instructions in [lab/INSTRUCTIONS.md](./lab/IN
 ### Ubuntu/Debian
 
 ```
-sudo apt install qemu-system-riscv64 gdb-multiarch clang meson ninja-build lld
+sudo apt install qemu-system-riscv64 binutils-riscv64-unknown-elf gdb-multiarch clang meson ninja-build lld
 ```
 
 ### Arch Linux
