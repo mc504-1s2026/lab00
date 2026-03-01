@@ -36,7 +36,7 @@ qemu-system-riscv64 -nographic -machine virt -bios none -kernel $KERNEL_PATH -s 
 # ugly hack, but we wait 5s for the machine to complete the setup into S-mode
 sleep 5
 QEMU_PID=$!
-MEPC_ADDR=$(gdb -batch -ex "b kmain()" -ex "info all-registers" | grep "mepc" | awk '{print $2}')
+MEPC_ADDR=$(gdb -batch -ex "file $KERNEL_PATH" -ex "target remote localhost:1234" -ex "b kmain()" -ex "info all-registers" | grep "mepc" | awk '{print $2}')
 
 echo "[grader] killing QEMU..."
 echo "-------------------------------"
