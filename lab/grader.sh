@@ -14,6 +14,14 @@ if [[ ! -f "./meson-llvm-riscv.ini" || ! -f "./meson.build" ]]; then
     exit 1
 fi
 
+# figure out what distro we're running on to work around a stupid ubuntu quirk
+. /etc/os-release
+if [[ "$ID" = "ubuntu" ]]; then
+    GDB=gdb-multiarch
+else
+    GDB=gdb
+fi
+
 KERNEL_PATH=build/src/kernel.elf
 
 if [[ -d build ]]; then
@@ -36,7 +44,7 @@ qemu-system-riscv64 -nographic -machine virt -bios none -kernel $KERNEL_PATH -s 
 # ugly hack, but we wait 5s for the machine to complete the setup into S-mode
 sleep 5
 QEMU_PID=$!
-MEPC_ADDR=$(gdb -batch -ex "file $KERNEL_PATH" -ex "target remote localhost:1234" -ex "b kmain()" -ex "info all-registers" | grep "mepc" | awk '{print $2}')
+MEPC_ADDR=$($GDB -batch -ex "file $KERNEL_PATH" -ex "target remote localhost:1234" -ex "b kmain()" -ex "info all-registers" | grep "mepc" | awk '{print $2}')
 
 echo "[grader] killing QEMU..."
 echo "-------------------------------"
