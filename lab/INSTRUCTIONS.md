@@ -208,7 +208,7 @@ Seeing the `successfully entered S-mode` message (from `kmain` in
 
 # Lab instructions
 
-Your assignment is to implement code in `src/setup.c` and `include/arch/csr.h`
+Your assignment is to implement code in `src/startup.c` and `include/arch/csr.h`
 to successfully transition the kernel from M-mode to S-mode by following the
 [detailed step-by-step process](#s-mode-handover-process) described above.
 

@@ -47,5 +47,5 @@ meson compile -C build boot
 To run the autograder tests:
 
 ```
-build/grader.sh
+./lab/grader.sh
 ```
