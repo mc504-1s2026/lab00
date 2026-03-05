@@ -52,7 +52,13 @@ echo "-------------------------------"
 kill -INT $QEMU_PID
 
 # extract address of kmain from the kernel ELF
-KMAIN_ADDR=$(riscv64-unknown-elf-objdump -t build/src/kernel.elf | grep kmain | awk '{print $1}')
+echo $ID
+if [[ "$ID" = "fedora" ]]; then
+    OBJDUMP=riscv64-linux-gnu-objdump
+else
+    OBJDUMP=riscv64-unknown-elf-objdump
+fi
+KMAIN_ADDR=$($OBJDUMP -t build/src/kernel.elf | grep kmain | awk '{print $1}')
 
 MEPC_ADDR_DECIMAL=$(printf "%d\n" $MEPC_ADDR)
 KMAIN_ADDR_DECIMAL=$(printf "%d\n" "0x$KMAIN_ADDR")
